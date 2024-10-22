@@ -1,3 +1,12 @@
+/* NOME: Henrique Rodrigues Ribeiro
+   RA: 176515
+   Turma: IA
+   
+   Exercício 1020
+    Idade em Dias
+   Leia um valor inteiro correspondente à idade de uma pessoa em dias e informe-a em anos, meses e dias 
+*/
+
 #include <stdio.h>
 
 int main() {
