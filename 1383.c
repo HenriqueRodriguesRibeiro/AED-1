@@ -1,3 +1,11 @@
+/* NOME: Henrique Rodrigues Ribeiro
+   RA: 176515
+   Turma: IA
+   
+    Exercício 1383
+        Sudoku
+*/
+
 #include <stdio.h>
 
 int sudoku[9][9];
