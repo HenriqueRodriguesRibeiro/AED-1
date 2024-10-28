@@ -17,7 +17,7 @@ int sameColumn(int x){
     for(int i = 0; i < 10; i++){
         num[i] = 0;
     }
-
+   // verifica se tem numero repetido na coluna, caso falhe retorna 0
     for(int i = 0; i < 9; i++){
         if(num[sudoku[x][i]]) 
            return 0;
@@ -34,8 +34,9 @@ int sameRow(int y){
      for(int i = 0; i < 10; ++i){
         num[i] = 0;
     }
-
+   //verifica numero repitido na linha, caso falhe retorna 0
     for(int i = 0; i < 9; i++){
+       //obtem o valor da célula trabalhada
         if(num[sudoku[i][y]]) 
            return 0;
             num[sudoku[i][y]] += 1;
@@ -52,9 +53,10 @@ int sameSquare(int x){
     for(int i = 0; i < 10; ++i){
         num[i] = 0;
     }
-
+   //verifica se tem numero repitido no quadrado
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
+           //obtem o valor da célula trabalhada
            if(num[sudoku[linha + i][coluna + j]]) 
               return 0;
             num[sudoku[linha + i][coluna + j]] += 1;
@@ -82,7 +84,7 @@ int main(){
         resposta = "Sim";
        
         for(int i = 0; i < 9; ++i){
-            if(!sameRow(i) || !sameColumn(i) || !sameSquare(i)){
+            if(!sameRow(i) || !sameColumn(i) || !sameSquare(i)){ //se alguma verificação falhar, o tabuleiro é inválido
                 resposta = "Nao";
                 break;
             }
