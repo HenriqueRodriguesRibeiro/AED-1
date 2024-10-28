@@ -10,6 +10,7 @@
 
 int sudoku[9][9];
 
+//Verificação das colunas
 int sameColumn(int x){
     int num[10];
 
@@ -18,13 +19,15 @@ int sameColumn(int x){
     }
 
     for(int i = 0; i < 9; i++){
-        if(num[sudoku[x][i]]) return 0;
+        if(num[sudoku[x][i]]) 
+           return 0;
             num[sudoku[x][i]] += 1;
     }
 
     return 1;
 }
 
+//verificação das Linhas
 int sameRow(int y){
     int num[10];
 
@@ -33,13 +36,15 @@ int sameRow(int y){
     }
 
     for(int i = 0; i < 9; i++){
-        if(num[sudoku[i][y]]) return 0;
+        if(num[sudoku[i][y]]) 
+           return 0;
             num[sudoku[i][y]] += 1;
     }
 
     return 1;
 }    
 
+//Verificação dos quadrados 3x3
 int sameSquare(int x){
     int num[10];
     int linha = 3*(x/3), coluna = 3*(x%3);
@@ -50,7 +55,8 @@ int sameSquare(int x){
 
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
-           if(num[sudoku[linha + i][coluna + j]]) return 0;
+           if(num[sudoku[linha + i][coluna + j]]) 
+              return 0;
             num[sudoku[linha + i][coluna + j]] += 1;
         }    
     }
@@ -73,10 +79,11 @@ int main(){
 
         printf("Instancia %d\n", k);
 
-        resposta = "SIM";
+        resposta = "Sim";
+       
         for(int i = 0; i < 9; ++i){
             if(!sameRow(i) || !sameColumn(i) || !sameSquare(i)){
-                resposta = "NAO";
+                resposta = "Nao";
                 break;
             }
         }
