@@ -50,7 +50,8 @@ int sameSquare(int x){
 
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
-           if(num[sudoku[linha + i][coluna + j]]) return 0;
+           if(num[sudoku[linha + i][coluna + j]]) 
+            return 0;
             num[sudoku[linha + i][coluna + j]] += 1;
         }    
     }
