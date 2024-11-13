@@ -20,7 +20,7 @@ void insere(int x, celula *p){
 void imprimir (celula *ult){
     celula *p;
     for(p = ult->prox; p!=NULL; p = p->prox){
-        if(p->prox ==NULL)
+        if(p->prox == NULL)
             printf("%d\n", p->conteudo);
         else
             printf("%d ", p->conteudo);
