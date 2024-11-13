@@ -1,7 +1,8 @@
-/*
-3160 - Amigos
-> Cassiano Rodrigues
-> 07/04/2021
+/* 
+   NOME: Henrique Rodrigues Ribeiro
+   RA: 176515
+   Turma: IA
+   
 */
 
 #include <stdbool.h>
@@ -112,8 +113,7 @@ main()
     List *lista = createList();
     DataNode data;
 
-    while()
-    {
+    while{
         scanf("%s", data.name);
         push_front(lista, data);
     }
