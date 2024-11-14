@@ -1,3 +1,5 @@
+#include <malloc.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -46,7 +48,7 @@ int main(){
 	cabeca->prox = NULL;
 
 	int n;
-	scanf(("%d",&n));
+	scanf("%d",&n);
 
 	int lista;
 	celula *next = cabeca;
