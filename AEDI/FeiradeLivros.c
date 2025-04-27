@@ -36,7 +36,7 @@ int DadosCliente(Cliente *cliente) {
     return 1;
 }
 
-void calcularCompraTroco(Cliente cliente) {
+void calculoCompra(Cliente cliente) {
     float dinheiro = cliente.D;
     int livros_comprados = 0;
 
@@ -47,7 +47,6 @@ void calcularCompraTroco(Cliente cliente) {
             livros_comprados++;
         }
     }
-
     //Imprimir resultado
     printf("%d %.2f\n", livros_comprados, dinheiro);
 }
@@ -84,7 +83,7 @@ int main() {
 
     // Calcular e mostrar resultados para cada cliente
     for (int i = 0; i < N; i++) {
-        calcularCompraTroco(clientes[i]);
+        calculoCompra(clientes[i]);
         free(clientes[i].P); // Liberar memória alocada para os preços
     }
 
