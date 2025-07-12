@@ -34,21 +34,17 @@ ArvoreNo* montarArvore(char* preOrdem, char* emOrdem, int inicioIntervalo, int f
         return NULL;
     }
 
-    // Cria o nó atual com o próximo dado do percurso pré-ordem
     ArvoreNo* noAtual = criarNovoNo(preOrdem[*indicePre]);
     (*indicePre)++;
 
-    // Se o nó não tem filhos, retorna ele mesmo
     if (inicioIntervalo == fim) {
         return noAtual;
     }
 
-    // Encontra o índice deste nó no percurso em-ordem
-    int emOrdem = procurarPosicao(emOrdem, noAtual->dado, inicioIntervalo, fim);
+    int posEmOrdem = procurarPosicao(emOrdem, noAtual->dado, inicioIntervalo, fim);
 
-    // Constrói as subárvores esquerda e direita
-    noAtual->esq = montarArvore(preOrdem, emOrdem, inicioIntervalo, emOrdem - 1, indicePre);
-    noAtual->dir = montarArvore(preOrdem, emOrdem, emOrdem + 1, fim, indicePre);
+    noAtual->esq = montarArvore(preOrdem, emOrdem, inicioIntervalo, posEmOrdem - 1, indicePre);
+    noAtual->dir = montarArvore(preOrdem, emOrdem, posEmOrdem + 1, fim, indicePre);
 
     return noAtual;
 }
