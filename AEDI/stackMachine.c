@@ -6,122 +6,119 @@
  
 typedef struct pilha {
     int valor;
-    struct pilha *seg;
-} pilha;
+    struct pilha *prox;
+} Pilha;
  
-typedef pilha *ppilha;
- 
-ppilha inicializa() {
+Pilha* inicializar() {
     return NULL;
 }
  
-ppilha push(ppilha p, int n) {
-    ppilha novo = (ppilha) malloc(sizeof(pilha));
-    novo->valor = n;
-    novo->seg = p;
+Pilha* empilhar(Pilha *p, int valor) {
+    Pilha *novo = (Pilha*) malloc(sizeof(Pilha));
+    novo->valor = valor;
+    novo->prox = p;
     return novo;
 }
  
-ppilha pop(ppilha p, int *v) {
+Pilha* desempilhar(Pilha *p, int *valor) {
     if (!p) {
         printf("Erro: Pilha vazia!\n");
         return NULL;
     }
-    ppilha temp = p;
-    *v = p->valor;
-    p = p->seg;
+    Pilha *temp = p;
+    *valor = p->valor;
+    p = p->prox;
     free(temp);
     return p;
 }
  
-ppilha ADD(ppilha p, int *erro) {
+Pilha* adicionar(Pilha *p, int *erro) {
     int a, b;
-    if (!p || !p->seg) {
+    if (!p || !p->prox) {
         printf("Erro: Elementos insuficiente para operacao!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = pop(p, &b);
-    return push(p, a + b);
+    p = desempilhar(p, &a);
+    p = desempilhar(p, &b);
+    return empilhar(p, b + a);
 }
  
-ppilha SUB(ppilha p, int *erro) {
+Pilha* subtrair(Pilha *p, int *erro) {
     int a, b;
-    if (!p || !p->seg) {
+    if (!p || !p->prox) {
         printf("Erro: Elementos insuficiente para operacao!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = pop(p, &b);
-    return push(p, b - a);
+    p = desempilhar(p, &a);
+    p = desempilhar(p, &b);
+    return empilhar(p, b - a);
 }
  
-ppilha MUL(ppilha p, int *erro) {
+Pilha* multiplicar(Pilha *p, int *erro) {
     int a, b;
-    if (!p || !p->seg) {
+    if (!p || !p->prox) {
         printf("Erro: Elementos insuficiente para operacao!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = pop(p, &b);
-    return push(p, b * a);
+    p = desempilhar(p, &a);
+    p = desempilhar(p, &b);
+    return empilhar(p, b * a);
 }
  
-ppilha DIV(ppilha p, int *erro) {
+Pilha* dividir(Pilha *p, int *erro) {
     int a, b;
-    if (!p || !p->seg) {
+    if (!p || !p->prox) {
         printf("Erro: Elementos insuficiente para operacao!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = pop(p, &b);
+    p = desempilhar(p, &a);
+    p = desempilhar(p, &b);
     if (a == 0) {
         printf("Erro: Divisao por zero!\n");
         *erro = 1;
         return p;
     }
-    
-    return push(p, b / a);
+    return empilhar(p, b / a);
 }
  
-ppilha DUP(ppilha p, int *erro) {
-    int a;
+Pilha* duplicar(Pilha *p, int *erro) {
+    int valor;
     if (!p) {
         printf("Erro: Pilha vazia para DUP!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = push(p, a);
-    return push(p, a);
+    p = desempilhar(p, &valor);
+    p = empilhar(p, valor);
+    return empilhar(p, valor);
 }
  
-ppilha SWAP(ppilha p, int *erro) {
+Pilha* trocar(Pilha *p, int *erro) {
     int a, b;
-    if (!p || !p->seg) {
+    if (!p || !p->prox) {
         printf("Erro: Pilha insuficiente para SWAP!\n");
         *erro = 1;
         return p;
     }
-    p = pop(p, &a);
-    p = pop(p, &b);
-    p = push(p, a);
-    return push(p, b);
+    p = desempilhar(p, &a);
+    p = desempilhar(p, &b);
+    p = empilhar(p, a);
+    return empilhar(p, b);
 }
  
-ppilha ROLL(ppilha p, int n, int *erro) {
+Pilha* rolar(Pilha *p, int n, int *erro) {
     if (n <= 0) {
         printf("Erro: Posicao invalida!\n");
         *erro = 1;
         return p;
     }
  
-    ppilha aux = NULL;
-    int val, i;
+    Pilha *temp = NULL;
+    int valor, i;
  
     for (i = 1; i <= n; i++) {
         if (!p) {
@@ -130,108 +127,106 @@ ppilha ROLL(ppilha p, int n, int *erro) {
             return p;
         }
         if (i == n) {
-            p = pop(p, &val);
+            p = desempilhar(p, &valor);
         } else {
-            int temp;
-            p = pop(p, &temp);
-            aux = push(aux, temp);
+            int v;
+            p = desempilhar(p, &v);
+            temp = empilhar(temp, v);
         }
     }
  
-    while (aux) {
-        aux = pop(aux, &i);
-        p = push(p, i);
+    while (temp) {
+        temp = desempilhar(temp, &i);
+        p = empilhar(p, i);
     }
  
-    p = push(p, val);
- 
-    return p;
+    return empilhar(p, valor);
 }
  
-ppilha CLEAR(ppilha p) {
-    int v;
-    while (p) p = pop(p, &v);
-    return NULL;
+void limpar(Pilha *p) {
+    int temp;
+    while (p) {
+        p = desempilhar(p, &temp);
+    }
 }
  
-ppilha PRINT(ppilha p) {
-    int v;
-    ppilha aux = NULL;
+Pilha* imprimir(Pilha *p) {
+    Pilha *temp = NULL;
+    int valor;
     
     while (p) {
-        p = pop(p, &v);
-        printf("%d ", v);
-        aux = push(aux, v);
+        p = desempilhar(p, &valor);
+        printf("%d ", valor);
+        temp = empilhar(temp, valor);
     }
     printf("\n");
- 
-    while (aux) {
-        aux = pop(aux, &v);
-        p = push(p, v);
+    
+    while (temp) {
+        temp = desempilhar(temp, &valor);
+        p = empilhar(p, valor);
     }
- 
+    
     return p;
 }
  
 int main() {
-    int N, erro = 0, print = 0;
+    int N, erro = 0, imprimiu = 0;
     char linha[MAX_CMD];
-    ppilha head = inicializa();
+    Pilha *pilha = inicializar();
  
-    do{
-    scanf("%d", &N);
-    }while(N < 1 || N > 100);
- 
+    do {
+        scanf("%d", &N);
+    } while (N < 1 || N > 100);
     getchar();
  
     for (int i = 0; i < N && !erro; i++) {
         fgets(linha, sizeof(linha), stdin);
-        linha[strcspn(linha, "\n")] = 0;
+        linha[strcspn(linha, "\n")] = '\0';
  
-        char cmd[10];
-        int val;
+        char comando[10];
+        int valor;
  
-        if (sscanf(linha, "%s %d", cmd, &val) == 2) {
-            if (strcmp(cmd, "PUSH") == 0) {
-                head = push(head, val);
-            } else if (strcmp(cmd, "ROLL") == 0) {
-                head = ROLL(head, val, &erro);
+        if (sscanf(linha, "%s %d", comando, &valor) == 2) {
+            if (strcmp(comando, "PUSH") == 0) {
+                pilha = empilhar(pilha, valor);
+            } else if (strcmp(comando, "ROLL") == 0) {
+                pilha = rolar(pilha, valor, &erro);
             }
         } else {
             if (strcmp(linha, "POP") == 0) {
-                int tmp;
-                head = pop(head, &tmp);   
-            } if (strcmp(linha, "ADD") == 0) {
-                head = ADD(head, &erro);
+                int temp;
+                pilha = desempilhar(pilha, &temp);
+            } else if (strcmp(linha, "ADD") == 0) {
+                pilha = adicionar(pilha, &erro);
             } else if (strcmp(linha, "SUB") == 0) {
-                head = SUB(head, &erro);
+                pilha = subtrair(pilha, &erro);
             } else if (strcmp(linha, "MUL") == 0) {
-                head = MUL(head, &erro);
+                pilha = multiplicar(pilha, &erro);
             } else if (strcmp(linha, "DIV") == 0) {
-                head = DIV(head, &erro);
+                pilha = dividir(pilha, &erro);
             } else if (strcmp(linha, "DUP") == 0) {
-                head = DUP(head, &erro);
+                pilha = duplicar(pilha, &erro);
             } else if (strcmp(linha, "SWAP") == 0) {
-                head = SWAP(head, &erro);
+                pilha = trocar(pilha, &erro);
             } else if (strcmp(linha, "CLEAR") == 0) {
-                head = CLEAR(head);
+                limpar(pilha);
+                pilha = inicializar();
             } else if (strcmp(linha, "PRINT") == 0) {
-                head = PRINT(head);
-                print = 1;
+                pilha = imprimir(pilha);
+                imprimiu = 1;
             }
         }
+        
         if (erro) {
-            head = CLEAR(head);
+            limpar(pilha);
             return 0;
         }
     }
  
-    if(print == 0) {
-        
-        head = PRINT(head);
+    if (!imprimiu) {
+        pilha = imprimir(pilha);
     }
  
-    head = CLEAR(head);
- 
+    limpar(pilha);
     return 0;
 }
