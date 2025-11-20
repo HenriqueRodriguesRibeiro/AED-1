@@ -1,7 +1,6 @@
 /* 
     NOME: Henrique Rodrigues Ribeiro
     RA: 176515
-    Turma: IA
    
 */
 

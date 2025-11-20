@@ -1,7 +1,7 @@
 /* 
     NOME: Henrique Rodrigues Ribeiro
     RA: 176515
-    Turma: IA
+   
    
 */
 #include <stdio.h>
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-// Função DFS (Busca em Profundidade)
+
 void dfs(int u) {
     int i;
     lido[u] = true; // Marca o vértice u como visitado
