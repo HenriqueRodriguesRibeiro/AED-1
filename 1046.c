@@ -1,3 +1,9 @@
+/* 
+    NOME: Henrique Rodrigues Ribeiro
+    RA: 176515
+    
+   
+*/
 #include <stdio.h>
 
 int main () {
